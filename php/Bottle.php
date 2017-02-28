@@ -64,33 +64,37 @@ class Bottle
   }
 
   // SETTERS 
-
+  
+  public function setId($id)
+  {
+    $this->_id = filter_var($id, FILTER_SANITIZE_NUMBER_INT);
+  }
   public function setName($name)
   {
-    $this->_name = filter_var(INPUT_POST, 'name', FILTER_SANITIZE_STRING);
+    $this->_name = filter_var($name, FILTER_SANITIZE_STRING);
   }
   public function setYear($year)
   {
-    $this->_year = filter_var(INPUT_POST, 'year', FILTER_SANITIZE_NUMBER_INT);
+    $this->_year = filter_var($year, FILTER_SANITIZE_NUMBER_INT);
   }
   public function setGrapes($grapes)
   {
-    $this->_grapes = filter_var(INPUT_POST, 'grapes', FILTER_SANITIZE_STRING);
+    $this->_grapes = filter_var($grapes, FILTER_SANITIZE_STRING);
   }
   public function setCountry($country)
   {
-    $this->_country = filter_var(INPUT_POST, 'country', FILTER_SANITIZE_STRING);
+    $this->_country = filter_var($country, FILTER_SANITIZE_STRING);
   }
   public function setRegion($region)
   {
-    $this->_region = filter_var(INPUT_POST, 'region', FILTER_SANITIZE_STRING);
+    $this->_region = filter_var($region, FILTER_SANITIZE_STRING);
   }
   public function setDescription($description)
   {
-    $this->_description = filter_var(INPUT_POST, 'description', FILTER_SANITIZE_STRING);
+    $this->_description = filter_var($description, FILTER_SANITIZE_STRING);
   }
   public function setPicture($picture)
   {
-    $this->_picture = filter_var(INPUT_POST, 'picture', FILTER_SANITIZE_STRING);
+    $this->_picture = filter_var($picture, FILTER_SANITIZE_STRING);
   }
 }

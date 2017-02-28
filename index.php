@@ -1,35 +1,126 @@
 <?php
 // On enregistre notre autoload.
-function chargerClasse($classname)  // <-------------------------------------------------------
-{
-  require 'php/'.$classname.'.php';
-}
-spl_autoload_register('chargerClasse');// <-------------------------------------------------------
+// function chargerClasse($classname)  // <-------------------------------------------------------
+// {
+//   require 'php/'.$classname.'.php';
+// }
+// spl_autoload_register('chargerClasse');// <-------------------------------------------------------
 
 session_start();
+require 'php/Bottle.php';
+require 'php/CaveManager.php';
 include("php/php_fast_cache.php");
 
 require 'php/connect.php';          // Connection à la bd
 require("libs/Smarty.class.php");   // Smarty
-
-if(isset($_POST['create'])){        // <-------------------------------------------------------
-    $bottle_update = $_POST;
-    $bouteille = new Bottle($bottle_update);
-    $manager->add($bouteille);
-}                                   // <-------------------------------------------------------
-
 define('MAIN_PATH', getcwd());
 
+define("UPLOAD_DIR", "img/");
+$manager = new CaveManager($bdd);    // <-------------------------------------------------------
+if(isset($_POST['create']) AND (isset($_SESSION['id']) AND isset($_SESSION['pseudo']))){ // <------------------------------------------------------- CREATE
+    if (!empty($_FILES["picture"])) {
+        $pictureF = $_FILES["picture"];
+
+        if ($pictureF["error"] !== UPLOAD_ERR_OK) {
+            echo "<p>An error occurred.</p>";
+            exit;
+        }
+
+        // verify the file type
+        $fileType = exif_imagetype($_FILES["picture"]["tmp_name"]);
+        $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
+        if (!in_array($fileType, $allowed)) {
+            echo "<p>File type is not permitted.</p>";
+            exit;
+        }
+
+        // ensure a safe filename
+        $namePic = preg_replace("/[^A-Z0-9._-]/i", "_", $pictureF["name"]);
+
+        // don't overwrite an existing file
+        $i = 0;
+        $parts = pathinfo($namePic);
+        while (file_exists(UPLOAD_DIR . $namePic)) {
+            $i++;
+            $namePic = $parts["filename"] . "-" . $i . "." . $parts["extension"];
+        }
+
+        // preserve file from temporary directory
+        $success = move_uploaded_file($pictureF["tmp_name"],
+            UPLOAD_DIR . $namePic);
+        if (!$success) { 
+            echo "<p>Unable to save file.</p>";
+            exit;
+        }
+
+        // set proper permissions on the new file
+        chmod(UPLOAD_DIR . $namePic, 0644);
+    }
+    $bottle_create = $_POST;
+    $bottle_create['picture'] = $namePic;
+    $bouteille = new Bottle($bottle_create);
+    $manager->add($bouteille);
+    unset($_POST);
+    $cache = 'off';
+}                                   // <------------------------------------------------------- DELETE
+if(isset($_POST['delete']) AND (isset($_SESSION['id']) AND isset($_SESSION['pseudo']))){ 
+    $bouteille = new Bottle(['id'=>$_POST['Del_id']]);
+    $manager->delete($bouteille);
+    unset($_POST);
+    $cache = 'off';
+}
+if(isset($_POST['update']) AND (isset($_SESSION['id']) AND isset($_SESSION['pseudo']))){ 
+    if (!empty($_FILES["picture-file"]["name"])) {
+        $pictureF = $_FILES["picture-file"];
+
+        if ($pictureF["error"] !== UPLOAD_ERR_OK) {
+            echo "<p>An error occurred.</p>";
+            exit;
+        }
+
+        // verify the file type
+        $fileType = exif_imagetype($_FILES["picture-file"]["tmp_name"]);
+        $allowed = array(IMAGETYPE_GIF, IMAGETYPE_JPEG, IMAGETYPE_PNG);
+        if (!in_array($fileType, $allowed)) {
+            echo "<p>File type is not permitted.</p>";
+            exit;
+        }
+
+        // ensure a safe filename
+        $namePic = preg_replace("/[^A-Z0-9._-]/i", "_", $pictureF["name"]);
+
+        // don't overwrite an existing file
+        // preserve file from temporary directory
+        if(!file_exists(UPLOAD_DIR . $namePic)){
+            $success = move_uploaded_file($pictureF["tmp_name"],
+                UPLOAD_DIR . $namePic);
+            if (!$success) { 
+                echo "<p>Unable to save file.</p>";
+                exit;
+            }
+        }
+
+        // set proper permissions on the new file
+        chmod(UPLOAD_DIR . $namePic, 0644);
+    }
+
+    $picture=(isset($namePic))?$namePic:$_POST['picture'];
+    $bottle_update = $_POST;
+    $bottle_update['picture'] = $picture;
+    $bouteille = new Bottle($bottle_update);
+    $manager->update($bouteille);
+    unset($_POST);
+    $cache = 'off';
+}
 phpFastCache::$storage = "auto";
 $ListNames = phpFastCache::get("products_page");   //****** mise en cache *************************
-if($ListNames == null || !isset($_GET['cache'])) {
+if(is_null($ListNames) || isset($cache)) {
     $req       = $bdd->query("SELECT * FROM mycave ORDER BY id");   // récupère toute la base
     $ListNames = $req->fetchAll(PDO::FETCH_ASSOC);
     phpFastCache::set("products_page",$ListNames,600);
-    $_GET['cache'] = NULL;                        //*****************************************
+    unset($cache);                        //*****************************************
 }
 
-$manager = new CaveManager($db);    // <-------------------------------------------------------
 
 $first     = $ListNames[0]["id"];               // 1er enregistrement
 $nb_rec    = count($ListNames);                 // nb d'elements dans la base

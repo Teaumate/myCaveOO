@@ -10,26 +10,45 @@ class CaveManager
   
   public function add(Bottle $bouteille)
   {
-    $q = $this->_db->prepare('INSERT INTO personnages(nom) VALUES(:nom)');
-    $q->bindValue(':nom', $perso->nom());
-    $q->execute();
-    
+    $req = $this->_db->prepare("INSERT INTO mycave( name, year, grapes, country, region, description, picture) VALUES (?,?,?,?,?,?,?)");
+    $req->execute(array($bouteille->name(), 
+                        $bouteille->year(), 
+                        $bouteille->grapes(), 
+                        $bouteille->country(), 
+                        $bouteille->region(), 
+                        $bouteille->description(), 
+                        $bouteille->picture())
+                  );
+                        
     $bouteille->hydrate([
-      'id' => $this->_db->lastInsertId(),
-      'degats' => 0
+      'id' => $this->_db->lastInsertId()
     ]);
+  }
+  
+  public function delete(Bottle $bouteille)
+  {
+    $this->_db->exec('DELETE FROM mycave WHERE id = '.$bouteille->id());
+  }
+  
+  public function update(Bottle $bouteille)
+  {
+    $req = $this->_db->prepare("UPDATE `mycave` SET `name`=?,`year`=?,`grapes`=?,`country`=?,`region`=?,`description`=?,`picture`=? WHERE id=?");
+    $req->execute(array($bouteille->name(), 
+                        $bouteille->year(), 
+                        $bouteille->grapes(), 
+                        $bouteille->country(), 
+                        $bouteille->region(), 
+                        $bouteille->description(), 
+                        $bouteille->picture(),
+                        $bouteille->id())
+                  );
   }
   
   public function count()
   {
     return $this->_db->query('SELECT COUNT(*) FROM personnages')->fetchColumn();
   }
-  
-  public function delete(Personnage $perso)
-  {
-    $this->_db->exec('DELETE FROM personnages WHERE id = '.$perso->id());
-  }
-  
+
   public function exists($info)
   {
     if (is_int($info)) // On veut voir si tel personnage ayant pour id $info existe.
@@ -77,17 +96,7 @@ class CaveManager
     
     return $persos;
   }
-  
-  public function update(Personnage $perso)
-  {
-    $q = $this->_db->prepare('UPDATE personnages SET degats = :degats WHERE id = :id');
-    
-    $q->bindValue(':degats', $perso->degats(), PDO::PARAM_INT);
-    $q->bindValue(':id', $perso->id(), PDO::PARAM_INT);
-    
-    $q->execute();
-  }
-  
+
   public function setDb(PDO $db)
   {
     $this->_db = $db;

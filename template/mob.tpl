@@ -11,13 +11,13 @@
       <button type="button" class="update update-xs {if !(isset($session['id']) AND isset($session['pseudo']))}disabled{/if}" data-toggle="modal" data-target="#UpdateModal" >
         <i class="fa fa-pencil"></i>
       </button>
-      <form method="post" action="php/delete.php" class="btn-delete-xs">
+      <form method="post" action="index.php" class="btn-delete-xs">
+        <input type="text" class="hidden" name="delete" value='delete'/> <!-- pour passer l'ordre delete -->
         <button type="submit" class="delete delete-xs {if !(isset($session['id']) AND isset($session['pseudo']))}disabled{/if}" >
           <i class="fa fa-trash"></i>
         </button>
-        <div class="hidden"><input type="text" name="Del_rec" value="{$elts[0].id}"></div> <!-- masqué on récup l'ID -->
+        <div class="hidden"><input type="text" name="Del_id" value="{$elts[0].id}"></div> <!-- masqué on récup l'ID -->
       </form>
-      {*{html_options name=name options=$myOptions selected=$bottle}*}
     </div>
     <div class="col-xs-1 text-right">
     <a href="index.php?bottle={$bottle}&direction=right" class="hidden"><i class="fa fa-arrow-circle-right fa-2x" aria-hidden="true"></i></a>
@@ -80,7 +80,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="php/create.php" method="post" enctype="multipart/form-data">
+            <form action="index.php" method="post" enctype="multipart/form-data">
               <div class="form-group">
                 <label class="form-control-label">Nom:</label>
                 <input type="text" class="form-control" name="name" required>
@@ -105,6 +105,7 @@
                 <label class="form-control-label">Description:</label>
                 <input type="text" class="form-control" name="description" required>
               </div>
+              <input type="text" class="hidden" name="create" value='create'/> <!-- pour passer l'ordre create -->
 
                   <div class="input-file-container">
                     <input type="file" name="picture" class="input-file input-file-create-xs" required/>
@@ -131,7 +132,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="php/update.php" method="post" enctype="multipart/form-data">
+            <form action="index.php" method="post" enctype="multipart/form-data">
               <div class="hidden">
                 <label class="form-control-label">Id:</label>
                 <input type="text" class="form-control" name="id" value="{$elts[0].id}">
@@ -165,6 +166,7 @@
                 <label class="form-control-label">{$elts[0].picture}</label>
                 <input type="text" class="form-control hidden" name="picture" value="{$elts[0].picture}">
               </div>
+              <input type="text" class="hidden" name="update" value='update'/> <!-- pour passer l'ordre update -->
 
                   <div class="input-file-container">
                     <input type="file" name="picture-file" class="input-file input-file-update-xs">

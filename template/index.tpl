@@ -78,13 +78,16 @@
           <div class="row" id="newRow">
             <!--**************  Create  ****************-->
             <div class="col-sm-12 tr">
-              <form class="" method="post" action="../index.php" enctype="multipart/form-data" name="create">
+              <form class="" method="post" action="index.php" enctype="multipart/form-data">
                 <div class=" col-sm-1 td">
                   <div class="input-file-container">
                     <input type="file" name="picture" class="input-file input-file-create" required/>
                     <label id="lbl-create" tabindex="0" class="input-file-trigger">Select Image</label>
                   </div>
                 </div>
+                
+                <input type="text" class="hidden" name="create" value='create'/> <!-- pour passer l'ordre create -->
+                
                 <div class=" col-sm-2 td">
                   <input type="text" class="form-control newrow" name="name" placeholder="Name..." required autofocus/>
                 </div>
@@ -139,9 +142,10 @@
                       <button type="button" class="update {if !(isset($session['id']) AND isset($session['pseudo']))}disabled{/if}" data-toggle="modal" data-target="#myModal" >
                       <em class="fa fa-pencil"></em>
                       </button>
-                      <form method="post" action="php/delete.php">
+                      <form method="post" action="index.php" name="delete">
+                        <input type="text" class="hidden" name="delete" value='delete'/> <!-- pour passer l'ordre delete -->
                         <button type="submit" class="delete {if !(isset($session['id']) AND isset($session['pseudo']))}disabled{/if}"><em class="fa fa-trash"></em></button>
-                        <div class="hidden"><input type="text" name="Del_rec" value="{$elt.id}"></div>
+                        <div class="hidden"><input type="text" name="Del_id" value="{$elt.id}"></div>
                       </form>
                   </div>
                 </div>
@@ -176,7 +180,7 @@
             </button>
           </div>
           <div class="modal-body">
-            <form action="php/update.php" method="post" enctype="multipart/form-data">
+            <form action="index.php" method="post" enctype="multipart/form-data">
               <div class="hidden">
                 <label class="form-control-label">Id:</label>
                 <input type="text" class="form-control" name="id">
@@ -210,7 +214,8 @@
                 <label class="form-control-label">{$elts[0].picture}</label>
                 <input type="text" class="form-control hidden" name="picture">
               </div>
-
+              <input type="text" class="hidden" name="update" value='update'/> <!-- pour passer l'ordre update -->
+              
               <div class="input-file-container">
                 <input type="file" name="picture-file" class="input-file input-file-modal"/>
                 <label id="lbl-modal" tabindex="0" class="input-file-trigger">Change Image</label>
