@@ -8,6 +8,11 @@ class CaveManager
     $this->setDb($db);
   }
   
+  public function setDb(PDO $db)
+  {
+    $this->_db = $db;
+  }
+  
   public function add(Bottle $bouteille)
   {
     $req = $this->_db->prepare("INSERT INTO mycave( name, year, grapes, country, region, description, picture) VALUES (?,?,?,?,?,?,?)");
@@ -40,65 +45,19 @@ class CaveManager
                         $bouteille->region(), 
                         $bouteille->description(), 
                         $bouteille->picture(),
-                        $bouteille->id())
-                  );
+                        $bouteille->id()));
   }
   
   public function count()
   {
-    return $this->_db->query('SELECT COUNT(*) FROM personnages')->fetchColumn();
+    return $this->_db->query('SELECT COUNT(*) FROM mycave')->fetchColumn();
   }
 
-  public function exists($info)
+  public function getList()
   {
-    if (is_int($info)) // On veut voir si tel personnage ayant pour id $info existe.
-    {
-      return (bool) $this->_db->query('SELECT COUNT(*) FROM personnages WHERE id = '.$info)->fetchColumn();
-    }
-    
-    // Sinon, c'est qu'on veut vérifier que le nom existe ou pas.
-    
-    $q = $this->_db->prepare('SELECT COUNT(*) FROM personnages WHERE nom = :nom');
-    $q->execute([':nom' => $info]);
-    
-    return (bool) $q->fetchColumn();
-  }
-  
-  public function get($info)
-  {
-    if (is_int($info))
-    {
-      $q = $this->_db->query('SELECT id, nom, degats FROM personnages WHERE id = '.$info);
-      $donnees = $q->fetch(PDO::FETCH_ASSOC);
-      
-      return new Personnage($donnees);
-    }
-    else
-    {
-      $q = $this->_db->prepare('SELECT id, nom, degats FROM personnages WHERE nom = :nom');
-      $q->execute([':nom' => $info]);
-    
-      return new Personnage($q->fetch(PDO::FETCH_ASSOC));
-    }
-  }
-  
-  public function getList($nom)
-  {
-    $persos = [];
-    
-    $q = $this->_db->prepare('SELECT id, nom, degats FROM personnages WHERE nom <> :nom ORDER BY nom');
-    $q->execute([':nom' => $nom]);
-    
-    while ($donnees = $q->fetch(PDO::FETCH_ASSOC))
-    {
-      $persos[] = new Personnage($donnees);
-    }
-    
-    return $persos;
+    $q = $this->_db->query("SELECT * FROM mycave ORDER BY id");   // récupère toute la base
+    $ListBottles = $q->fetchAll(PDO::FETCH_ASSOC);
+    return $ListBottles;
   }
 
-  public function setDb(PDO $db)
-  {
-    $this->_db = $db;
-  }
 }

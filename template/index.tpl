@@ -106,7 +106,7 @@
                 <div class=" col-sm-4 td">
                   <input type="text" class="form-control newrow" name="description" placeholder="Description..." required/>
                 </div>
-                <div class="col-sm-1 td">
+                <div class="col-sm-1 btn-center td">
                   <input type="submit" class="btn btn-md btn-info" value="OK">
                 </div>
               </form>
@@ -121,7 +121,7 @@
                   <div class="hidden">
                       {$elt.picture}      <!--      necessaire pour récup nom de l'image dans modal via js -->
                   </div>
-                  <div class=" col-sm-1 td {$elt.ordre}" style="overflow: visible; z-index: {$elt.ordre};">     <!--      affiche l'image  -->
+                  <div class=" col-sm-1 td img-container" style=" z-index: {$elt.ordre};">     <!--      affiche l'image  -->
                       <img class="img-responsive effectfront" src="img/{$elt.picture}" alt="bouteille de {$elt.name}">
                   </div>
                   <div class="col-sm-2 td">
