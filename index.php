@@ -1,19 +1,14 @@
 <?php
 // On enregistre notre autoload.
-// function chargerClasse($classname)  // <-------------------------------------------------------
-// {
-//   require 'php/'.$classname.'.php';
-// }
-// spl_autoload_register('chargerClasse');// <-------------------------------------------------------
 session_start();
+require "libs/Smarty.class.php";    // Smarty
+include 'php/php_fast_cache.php';   // Cache
 
-require 'php/Bottle.php';
-require 'php/CaveManager.php';
-require 'php/Connexion.php';
-require 'php/UserService.php';
-
-include 'php/php_fast_cache.php';
-require "libs/Smarty.class.php";   // Smarty
+function chargerClasse($classname)  
+{
+  require 'php/'.$classname.'.php';
+}
+spl_autoload_register('chargerClasse');  // autoloader
 
 define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
@@ -21,10 +16,11 @@ define("UPLOAD_DIR", "img/");
 $connexion = new Connexion('localhost', 'root', 'root', 'test');
 $bdd = $connexion->getPDO();
 $manager = new CaveManager($bdd);
+
 if(isset($_POST['loggingin'])){   
     $userService = new UserService($bdd, $_POST['login'], $_POST['pswd']);// <------------------- LOGIN 
     if ($user_id = $userService->login()) {
-        echo 'Logged in as user id: '.$user_id;
+        //echo 'Logged in as user id: '.$user_id;
         $userData = $userService->getUser();
         $_SESSION['id'] = $userData['id'];
         $_SESSION['pseudo'] = $userData['login'];
@@ -38,12 +34,6 @@ if(isset($_GET['logout'])){                       //  <-------------------------
     $page = $_SESSION['page'];
     $_SESSION = array();
     session_destroy();
-
-    // Suppression des cookies de connexion automatique
-    setcookie('login', '');
-    setcookie('pass_hache', '');
-
-    header('Location: index.php?page='.$page);
     unset($_GET);
 }
 if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
