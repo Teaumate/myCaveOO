@@ -10,17 +10,44 @@ session_start();
 require 'php/Bottle.php';
 require 'php/CaveManager.php';
 require 'php/Connexion.php';
-include("php/php_fast_cache.php");
+require 'php/UserService.php';
 
+include 'php/php_fast_cache.php';
 require "libs/Smarty.class.php";   // Smarty
-define('MAIN_PATH', getcwd());
 
+define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
-$connexion = new Connexion('localhost', 'root', 'toor', 'test');
+
+$connexion = new Connexion('localhost', 'root', 'root', 'test');
 $bdd = $connexion->getPDO();
-$manager = new CaveManager($bdd);   
+$manager = new CaveManager($bdd);
+if(isset($_POST['loggingin'])){   
+    $userService = new UserService($bdd, $_POST['login'], $_POST['pswd']);// <------------------- LOGIN 
+    if ($user_id = $userService->login()) {
+        echo 'Logged in as user id: '.$user_id;
+        $userData = $userService->getUser();
+        $_SESSION['id'] = $userData['id'];
+        $_SESSION['pseudo'] = $userData['login'];
+        unset($_POST);
+    } else {
+        echo 'Invalid login';
+    }
+}
+if(isset($_GET['logout'])){                       //  <------------------------------------------  LOGOUT
+    // Suppression des variables de session et de la session
+    $page = $_SESSION['page'];
+    $_SESSION = array();
+    session_destroy();
+
+    // Suppression des cookies de connexion automatique
+    setcookie('login', '');
+    setcookie('pass_hache', '');
+
+    header('Location: index.php?page='.$page);
+    unset($_GET);
+}
 if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
-    if(isset($_POST['create'])){                // <------------------------------------------------ CREATE
+    if(isset($_POST['create'])){                // <----------------------------------------------- CREATE
         if (!empty($_FILES["picture"])) {
             $pictureF = $_FILES["picture"];
 
@@ -120,7 +147,7 @@ phpFastCache::$storage = "auto";
 $ListNames = phpFastCache::get("products_page");   // mise en cache 
 if(is_null($ListNames) || isset($cache)) {
     $ListNames = $manager->getList();// <------------------------------------------------------- READ
-    phpFastCache::set("products_page",$ListNames,600);
+    phpFastCache::set("products_page",$ListNames,0);
     unset($cache);
 }
 
@@ -173,7 +200,7 @@ if (!(isset($direction))) { // ****************************** si grand écran **
     $elements[] = $LaBase[$bottle];
     $direction = NULL;
 }
-
+$_SESSION['page'] = $page;
 $smarty = new Smarty();                   // nouvel objet smarty et recup des variables php dans smarty
 $smarty->setTemplateDir('./template');
 $smarty->assign('nb_rec', $nb_rec);       // nombre de lignes dans mycave

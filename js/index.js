@@ -164,38 +164,41 @@ function detectswipe(el,func) {
     detectswipe('SwipeScreen',myfunction);
 
 // ****************************** Gestion effet sur image avec la souris *****************************
+    
+    // $width = $('.effectfront').parent().width();
+    // $('.effectfront').css("width", $width);
 
-    $('.effectfront').bind('DOMMouseScroll', function(e){
-        if(e.originalEvent.detail > 0) {
-            $(this).animate({width: '-=20px'},0);
-            console.log('Down');
-        }else {
-            $(this).animate({width: '+=20px'},0);
-            console.log('Up');
-        }
+//     $('.effectfront').bind('DOMMouseScroll', function(e){
+//         if(e.originalEvent.detail > 0) {
+//             $(this).animate({width: '-=20px'},0);
+//             console.log('Down');
+//         }else {
+//             $(this).animate({width: '+=20px'},0);
+//             console.log('Up');
+//         }
 
-        //prevent page fom scrolling
-        return false;
-    });
+//         //prevent page fom scrolling
+//         return false;
+//     });
 
-    //IE, Opera, Safari
-    $('.effectfront').bind('mousewheel', function(e){
-        if(e.originalEvent.wheelDelta < 0) {
-            $(this).animate({width: '-=20px'},0);
-            console.log('Down');
-        }else {
-            $(this).animate({width: '+=20px'},0);
-            console.log('Up');
-        }
+//     //IE, Opera, Safari
+//     $('.effectfront').bind('mousewheel', function(e){
+//         if(e.originalEvent.wheelDelta < 0) {
+//             $(this).animate({width: '-=20px'},0);
+//             console.log('Down');
+//         }else {
+//             $(this).animate({width: '+=20px'},0);
+//             console.log('Up');
+//         }
 
-        //prevent page fom scrolling
-        return false;
-    });
-    $(".effectfront").mouseleave(function(){
-        $width = $(this).parent().width();
-        $(this).animate({width: $width},400);
-    });
-    $(".effectfront").mouseover(function(){
-        $(this).css("width", "191");
-    });
+//         //prevent page fom scrolling
+//         return false;
+//     });
+//     $(".effectfront").mouseleave(function(){
+//         $width = $(this).parent().width();
+//         $(this).animate({width: $width},400);
+//     });
+//     $(".effectfront").mouseover(function(){
+//         $(this).css("width", "191");
+//     });
 });

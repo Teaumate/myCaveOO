@@ -16,30 +16,31 @@
           <ul class="nav navbar-nav navbar-right">
             <li class="dropdown">
               {if (isset($session['id']) AND isset($session['pseudo']))}
-                <a id="logout" href="php/logout.php"> <b>Logout</b> <i class="fa fa-sign-out" aria-hidden="true"></i></a>
+                <a id="logout" href="index.php?logout=out"> <b>Logout</b> <i class="fa fa-sign-out" aria-hidden="true"></i></a>
               {else}
-                  <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
-                  <ul id="login-dp" class="dropdown-menu">
-                    <li>
-                      <div class="row">
-                        <div class="col-md-12">
-                          <form class="form" role="form" method="post" action="php/login_post.php" accept-charset="UTF-8" id="login-nav">
-                            <div class="form-group">
-                              <label class="sr-only" for="InputLogin">Login</label>
-                              <input type="text" class="form-control" id="InputLogin" placeholder="Login" name="login" required autofocus>
-                            </div>
-                            <div class="form-group">
-                              <label class="sr-only" for="InputPswd">Password</label>
-                              <input type="password" class="form-control" id="InputPswd" placeholder="Password" name="pswd" required>
-                            </div>
-                            <div class="form-group">
-                              <button type="submit" class="btn btn-primary btn-block">Sign in</button>
-                            </div>
-                          </form>
-                        </div>
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown"><b>Login</b> <span class="caret"></span></a>
+                <ul id="login-dp" class="dropdown-menu">
+                  <li>
+                    <div class="row">
+                      <div class="col-md-12">
+                        <form class="form" role="form" method="post" action="index.php" accept-charset="UTF-8" id="login-nav">
+                          <div class="form-group">
+                            <label class="sr-only" for="InputLogin">Login</label>
+                            <input type="text" class="form-control" id="InputLogin" placeholder="Login" name="login" required autofocus>
+                          </div>
+                          <div class="form-group">
+                            <label class="sr-only" for="InputPswd">Password</label>
+                            <input type="password" class="form-control" id="InputPswd" placeholder="Password" name="pswd" required>
+                          </div>
+                          <input type="text" class="hidden" name="loggingin" value='login'/> <!-- pour passer l'ordre login -->
+                          <div class="form-group">
+                            <button type="submit" class="btn btn-primary btn-block">Sign in</button>
+                          </div>
+                        </form>
                       </div>
-                    </li>
-                  </ul>
+                    </div>
+                  </li>
+                </ul>
               {/if}
             </li>
           </ul>
