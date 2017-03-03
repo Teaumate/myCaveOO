@@ -86,7 +86,7 @@
                     <label id="lbl-create" tabindex="0" class="input-file-trigger">Select Image</label>
                   </div>
                 </div>
-                
+
                 <input type="text" class="hidden" name="create" value='create'/> <!-- pour passer l'ordre create -->
                 
                 <div class=" col-sm-2 td">

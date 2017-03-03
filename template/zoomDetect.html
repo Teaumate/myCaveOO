@@ -1,0 +1,21 @@
+<iframe id="iframe" style="width: 250px" ></iframe>
+<script type="text/javascript">
+    var elFrame = $('#iframe')[0];
+    $(elFrame.contentWindow).resize(function() {
+        $(window).trigger('zoom');
+    });
+    $(window).on('zoom', function() {
+        //console.log('zoom', window.devicePixelRatio);
+        $height = $('.effectfront').parent().height();
+        $width = $('.effectfront').parent().width();
+        if (window.devicePixelRatio < 1.25){
+            
+            $('.effectfront').css("height", $height);
+            $('.effectfront').css("width", $height*0.83);
+        }else{
+            $height = $width/0.83;
+            $('.effectfront').css("width", $width);
+            $('.effectfront').css("height", $height);
+        }
+    });
+</script>

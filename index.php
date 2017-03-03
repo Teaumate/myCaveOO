@@ -13,7 +13,7 @@ spl_autoload_register('chargerClasse');  // autoloader
 define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
 
-$connexion = new Connexion('localhost', 'root', 'root', 'test');
+$connexion = new Connexion('localhost', 'root', 'toor', 'test');
 $bdd = $connexion->getPDO();
 $manager = new CaveManager($bdd);
 

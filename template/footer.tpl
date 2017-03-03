@@ -5,5 +5,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-select/1.12.2/js/bootstrap-select.min.js"></script>
     <script src="js/bootbox.min.js"></script>
     <script src="js/index.js"></script>
+    {include file="zoomDetect.html"}
   </body>
 </html>

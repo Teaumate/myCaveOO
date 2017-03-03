@@ -165,40 +165,42 @@ function detectswipe(el,func) {
 
 // ****************************** Gestion effet sur image avec la souris *****************************
     
-    // $width = $('.effectfront').parent().width();
-    // $('.effectfront').css("width", $width);
+    $('.effectfront').bind('DOMMouseScroll', function(e){
+        if(e.originalEvent.detail > 0) {
+            $(this).animate({width: '-=20px'},0);
+            console.log('Down');
+        }else {
+            $(this).animate({width: '+=20px'},0);
+            console.log('Up');
+        }
 
-//     $('.effectfront').bind('DOMMouseScroll', function(e){
-//         if(e.originalEvent.detail > 0) {
-//             $(this).animate({width: '-=20px'},0);
-//             console.log('Down');
-//         }else {
-//             $(this).animate({width: '+=20px'},0);
-//             console.log('Up');
-//         }
+        //prevent page fom scrolling
+        return false;
+    });
 
-//         //prevent page fom scrolling
-//         return false;
-//     });
+    //IE, Opera, Safari
+    $('.effectfront').bind('mousewheel', function(e){
+        if(e.originalEvent.wheelDelta < 0) {
+            $(this).animate({width: '-=20px', height: '-=20px'},0);
+            console.log('Down');
+        }else {
+            $(this).animate({width: '+=20px', height: '+=20px'},0);
+            console.log('Up');
+        }
 
-//     //IE, Opera, Safari
-//     $('.effectfront').bind('mousewheel', function(e){
-//         if(e.originalEvent.wheelDelta < 0) {
-//             $(this).animate({width: '-=20px'},0);
-//             console.log('Down');
-//         }else {
-//             $(this).animate({width: '+=20px'},0);
-//             console.log('Up');
-//         }
+        //prevent page fom scrolling
+        return false;
+    });
+    $(".effectfront").mouseleave(function(){
+        $width = $(this).parent().width();
+        $height = $(this).parent().height();
+        $bestFit = $width > $height ? {width:$height*0.83, height:$height} : {width:$width, height:$width/0.83};
+        $(this).animate({width: $bestFit.width, height:$bestFit.height},400);
 
-//         //prevent page fom scrolling
-//         return false;
-//     });
-//     $(".effectfront").mouseleave(function(){
-//         $width = $(this).parent().width();
-//         $(this).animate({width: $width},400);
-//     });
-//     $(".effectfront").mouseover(function(){
-//         $(this).css("width", "191");
-//     });
+    });
+    $(".effectfront").mouseover(function(){
+        $width = 250;
+        $height=$width/0.83;
+        $(this).animate({width: $width, height:$height},400);
+    });
 });
