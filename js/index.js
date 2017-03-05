@@ -195,12 +195,12 @@ function detectswipe(el,func) {
         $width = $(this).parent().width();
         $height = $(this).parent().height();
         $bestFit = $width > $height ? {width:$height*0.83, height:$height} : {width:$width, height:$width/0.83};
-        $(this).animate({width: $bestFit.width, height:$bestFit.height},400);
+        $(this).stop().animate({width: $bestFit.width, height:$bestFit.height},400);
 
     });
     $(".effectfront").mouseover(function(){
         $width = 250;
         $height=$width/0.83;
-        $(this).animate({width: $width, height:$height},400);
+        $(this).stop().animate({width: $width, height:$height},400);
     });
 });

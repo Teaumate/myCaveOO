@@ -1,9 +1,12 @@
 <?php
+//  ------------------------ Design pattern Singleton
 class Connexion
 {
+  private static $_instance = null;
+
   protected $pdo, $serveur, $utilisateur, $motDePasse, $dataBase;
   
-  public function __construct($serveur, $utilisateur, $motDePasse, $dataBase)
+  private function __construct($serveur, $utilisateur, $motDePasse, $dataBase)
   {
     $this->serveur = $serveur;
     $this->utilisateur = $utilisateur;
@@ -12,7 +15,16 @@ class Connexion
     
     $this->setPDO();
   }
-  
+
+  public static function getInstance($serveur, $utilisateur, $motDePasse, $dataBase) {
+ 
+     if(is_null(self::$_instance)) {
+       self::$_instance = new Connexion($serveur, $utilisateur, $motDePasse, $dataBase);  
+     }
+ 
+     return self::$_instance;
+  }
+
   protected function setPDO()
   {
     $this->pdo = new PDO('mysql:host='.$this->serveur.';dbname='.$this->dataBase, $this->utilisateur, $this->motDePasse);

@@ -3,19 +3,21 @@
 session_start();
 require "libs/Smarty.class.php";    // Smarty
 include 'php/php_fast_cache.php';   // Cache
+include 'class/Autoloader.php';     // autoloader
 
-function chargerClasse($classname)  
-{
-  require 'php/'.$classname.'.php';
-}
-spl_autoload_register('chargerClasse');  // autoloader
+Autoloader::register();
+// function chargerClasse($classname)  
+// {
+//   require 'php/'.$classname.'.php';
+// }
+// spl_autoload_register('chargerClasse');  
 
 define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
 
-$connexion = new Connexion('localhost', 'root', 'toor', 'test');
+$connexion = Connexion::getInstance('localhost', 'root', 'toor', 'test');
 $bdd = $connexion->getPDO();
-$manager = new CaveManager($bdd);
+$manager = CaveManager::getInstance($bdd);
 
 if(isset($_POST['loggingin'])){   
     $userService = new UserService($bdd, $_POST['login'], $_POST['pswd']);// <------------------- LOGIN 
@@ -191,6 +193,7 @@ if (!(isset($direction))) { // ****************************** si grand écran **
     $direction = NULL;
 }
 $_SESSION['page'] = $page;
+
 $smarty = new Smarty();                   // nouvel objet smarty et recup des variables php dans smarty
 $smarty->setTemplateDir('./template');
 $smarty->assign('nb_rec', $nb_rec);       // nombre de lignes dans mycave

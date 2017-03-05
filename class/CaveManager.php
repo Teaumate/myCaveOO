@@ -1,13 +1,25 @@
 <?php
+//  ------------------------ Design pattern Singleton
 class CaveManager
 {
+  private static $_instance = null;
+
   private $_db; // Instance de PDO
   
-  public function __construct($db)
+  private function __construct($db)
   {
     $this->setDb($db);
   }
   
+  public static function getInstance($db) {
+ 
+     if(is_null(self::$_instance)) {
+       self::$_instance = new CaveManager($db);  
+     }
+ 
+     return self::$_instance;
+  }
+
   public function setDb(PDO $db)
   {
     $this->_db = $db;
