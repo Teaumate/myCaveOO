@@ -1,16 +1,11 @@
 <?php
-// On enregistre notre autoload.
+
 session_start();
 require "libs/Smarty.class.php";    // Smarty
 include 'php/php_fast_cache.php';   // Cache
 include 'class/Autoloader.php';     // autoloader
 
 Autoloader::register();
-// function chargerClasse($classname)  
-// {
-//   require 'php/'.$classname.'.php';
-// }
-// spl_autoload_register('chargerClasse');  
 
 define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
