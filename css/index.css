@@ -37,10 +37,10 @@ body{
     cursor: pointer;
 }
 /******************************************* div to table ***********************************/
-/*.form-control {
-    border: 0;
-    box-shadow: none;
-}*/
+ul li a.activeNumPage{
+    background-color: #885c7e;
+    color: #88002d;
+}
 .col-sm-1.th.btn-create-head{
     height: 40px;
     padding-top: 2.8px;

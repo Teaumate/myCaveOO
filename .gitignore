@@ -1,5 +1,4 @@
 .idea
-php/connect.php
 templates_c/**
 libs/**
 img/**

@@ -11,11 +11,10 @@ define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
 
 $connexion = Connexion::getInstance('localhost', 'root', 'toor', 'test');
-$bdd = $connexion->getPDO();
-$manager = CaveManager::getInstance($bdd);
+$manager = CaveManager::getInstance($connexion->getPDO());
 
 if(isset($_POST['loggingin'])){   
-    $userService = new UserService($bdd, $_POST['login'], $_POST['pswd']);// <------------------- LOGIN 
+    $userService = new UserService($connexion->getPDO(), $_POST['login'], $_POST['pswd']);// <------------------- LOGIN 
     if ($user_id = $userService->login()) {
         //echo 'Logged in as user id: '.$user_id;
         $userData = $userService->getUser();

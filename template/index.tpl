@@ -128,10 +128,10 @@
                   <div class="col-sm-2 td">
                       {$elt.name}
                   </div>
-                  {foreach $elt as $i}
-                    {if $i@index ge 2 && $i@index le 5}
+                  {foreach $elt as $value}
+                    {if $value@index ge 2 && $value@index le 5}
                     <div class=" col-sm-1 td">
-                        {$i}
+                        {$value}
                     </div>
                     {/if}
                   {/foreach}
@@ -163,7 +163,7 @@
           <div class="col-xs-8">
             <ul class="pagination hidden-xs pull-right">
               {for $i=1 to $nb_pages}
-                <li><a href="index.php?page={$i-1}">{$i}</a></li>
+                <li><a href="index.php?page={$i-1}" {if $i == ($page+1)} class="activeNumPage" {/if} >{$i}</a></li>
               {/for}
             </ul>
           </div>
