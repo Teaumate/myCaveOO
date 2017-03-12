@@ -34,7 +34,7 @@ if(isset($_GET['logout'])){                       //  <-------------------------
 }
 if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
     if(isset($_POST['create'])){                // <----------------------------------------------- CREATE
-        if (!empty($_FILES["picture"])) {
+        if (!empty($_FILES["picture"]["name"])) {
             $pictureF = $_FILES["picture"];
 
             if ($pictureF["error"] !== UPLOAD_ERR_OK) {
@@ -71,6 +71,8 @@ if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
 
             // set proper permissions on the new file
             chmod(UPLOAD_DIR . $namePic, 0644);
+        }else{
+            $namePic = "generic.jpg";
         }
         $bottle_create = $_POST;
         $bottle_create['picture'] = $namePic;

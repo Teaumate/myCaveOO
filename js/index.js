@@ -58,6 +58,7 @@ $(document).ready(function () {
         modal.find('input[name=region]').val($.trim($(button.parent().siblings()[7]).text()));
         modal.find('input[name=description]').val($.trim($(button.parent().siblings()[8]).text()));
         modal.find('input[name=picture]').val($.trim($(button.parent().siblings()[1]).text()));
+        modal.find('label[class*=picName]').text($.trim($(button.parent().siblings()[1]).text()));
     });
 
 /***********************************  affichage du nom de l'image après sélection (upload)*******************/

@@ -82,7 +82,7 @@
               <form class="" method="post" action="index.php" enctype="multipart/form-data">
                 <div class=" col-sm-1 td">
                   <div class="input-file-container">
-                    <input type="file" name="picture" class="input-file input-file-create" required/>
+                    <input type="file" name="picture" class="input-file input-file-create"/>
                     <label id="lbl-create" tabindex="0" class="input-file-trigger">Select Image</label>
                   </div>
                 </div>
@@ -212,7 +212,7 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Picture:</label>
-                <label class="form-control-label">{$elts[0].picture}</label>
+                <label class="form-control-label picName"></label>
                 <input type="text" class="form-control hidden" name="picture">
               </div>
               <input type="text" class="hidden" name="update" value='update'/> <!-- pour passer l'ordre update -->

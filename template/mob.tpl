@@ -108,7 +108,7 @@
               <input type="text" class="hidden" name="create" value='create'/> <!-- pour passer l'ordre create -->
 
                   <div class="input-file-container">
-                    <input type="file" name="picture" class="input-file input-file-create-xs" required/>
+                    <input type="file" name="picture" class="input-file input-file-create-xs"/>
                     <label id="lbl-create-xs" tabindex="0" class="input-file-trigger">Select Image</label>
                   </div>
 
@@ -163,7 +163,7 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Picture:</label>
-                <label class="form-control-label">{$elts[0].picture}</label>
+                <label class="form-control-label"></label>
                 <input type="text" class="form-control hidden" name="picture" value="{$elts[0].picture}">
               </div>
               <input type="text" class="hidden" name="update" value='update'/> <!-- pour passer l'ordre update -->
