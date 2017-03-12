@@ -96,6 +96,13 @@ $(document).ready(function () {
         OptionValue = selectName.value;
         window.location = 'index.php?bottle='+OptionValue+'&direction=center'; 
     }); 
+    selectName  = document.querySelector( "select[name=namelg]" );          
+    selectName.className += ' selectpicker show-tick show-menu-arrow form-control';  // définit les styles du selecteur
+    $('.selectpicker').selectpicker('show');
+    selectName.addEventListener( "change", function( event ) {
+        OptionValue = selectName.value;
+        window.location = 'index.php?bottle='+OptionValue; 
+    }); 
 /*********************************** gestion du swipe screen *************************************/
 
 function detectswipe(el,func) {

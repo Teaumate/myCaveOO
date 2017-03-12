@@ -16,7 +16,11 @@ class Autoloader{
      * @param $class string Le nom de la classe à charger
      */
     static function autoload($class){
-        require 'class/' . $class . '.php';
+        $file = 'class/' . $class . '.php';
+        if (file_exists($file)) 
+        {
+            require $file;
+        }
     }
 
 }

@@ -16,9 +16,9 @@ class Connexion
     $this->setPDO();
   }
 
-  public function __destruct() {
-    print "Destroying ";
-  }
+  // public function __destruct() {
+  //   print "Destroying ";
+  // }
 
   public static function getInstance($serveur, $utilisateur, $motDePasse, $dataBase) {
  

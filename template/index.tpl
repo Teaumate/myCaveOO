@@ -52,7 +52,7 @@
     <div class="col-md-12 hidden-xs"> <!-- *********************************** debut panel **********************************-->
     <div class="panel panel-default panel-table">
       <div class="panel-heading">
-        <h3 class="panel-title  text-center">This is MyCave!</h3>
+        <h3 class="panel-title  text-center">{html_options name=namelg options=$myOptions selected=$bottle}</h3>
       </div>
       <div class="panel-body">
         <div class="table table-striped table-bordered table-list">

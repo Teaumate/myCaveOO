@@ -67,7 +67,7 @@ class CaveManager
 
   public function getList()
   {
-    $q = $this->_db->query("SELECT * FROM mycave ORDER BY id");   // récupère toute la base
+    $q = $this->_db->query("SELECT * FROM mycave ORDER BY name");   // récupère toute la base
     $ListBottles = $q->fetchAll(PDO::FETCH_ASSOC);
     return $ListBottles;
   }
