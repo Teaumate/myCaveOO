@@ -122,7 +122,7 @@
                   <div class="hidden">
                       {$elt.picture}      <!--      necessaire pour récup nom de l'image dans modal via js -->
                   </div>
-                  <div class=" col-sm-1 td img-container" style=" z-index: {$elt.ordre};">     <!--      affiche l'image  -->
+                  <div class=" col-sm-1 td img-container" >     <!--      affiche l'image  -->
                       <img class="img-responsive effectfront" src="img/{$elt.picture}" alt="bouteille de {$elt.name}">
                   </div>
                   <div class="col-sm-2 td">

@@ -4,3 +4,4 @@ libs/**
 img/**
 .vscode
 nbproject/private/
+vendor/**
