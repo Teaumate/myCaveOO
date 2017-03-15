@@ -1,13 +1,14 @@
 $(document).ready(function () {
     var d = new Date();
     var y = d.getFullYear();                // recup de l'année en cours
-    $('.year').attr('max',y);               // fixe année max pour le champ 'year'
+    $('.year').attr('max',y);               // fixe année max pour le champ 'year' de create
+    
     var $lineHeight = Math.max($('img.img-responsive').height() + 16, 141);
     $('.tr>.td').css('height', $lineHeight);  // fixe la hauteur des lignes = hauteur(image) + 16
 
+/******************************** definit le z-index des vignettes ********************************/
     var zidx = document.querySelectorAll('.img-container');
     var lgth = zidx.length;
-
     for (var index = 0; index < zidx.length; index++) {
         var element = zidx[index];
         element.style['zIndex'] = lgth--;
@@ -103,13 +104,13 @@ $(document).ready(function () {
         OptionValue = selectName.value;
         window.location = 'index.php?bottle='+OptionValue+'&direction=center'; 
     }); 
-    // selectName  = document.querySelector( "select[name=namelg]" );          
-    // selectName.className += ' selectpicker show-tick show-menu-arrow form-control';  // définit les styles du selecteur
-    // $('.selectpicker').selectpicker('show');
-    // selectName.addEventListener( "change", function( event ) {
-    //     OptionValue = selectName.value;
-    //     window.location = 'index.php?bottle='+OptionValue; 
-    // }); 
+    selectNamelg  = document.querySelector( "select[name=namelg]" );          
+    selectNamelg.className += ' selectpicker show-tick show-menu-arrow form-control';  // définit les styles du selecteur
+    $('.selectpicker').selectpicker('show');
+    selectNamelg.addEventListener( "change", function( event ) {
+        OptionValue = selectNamelg.value;
+        window.location = 'index.php?bottle='+OptionValue; 
+    }); 
 /*********************************** gestion du swipe screen *************************************/
 
 function detectswipe(el,func) {
