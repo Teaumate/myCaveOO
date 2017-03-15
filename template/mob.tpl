@@ -74,7 +74,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalLbl">Nvle Teteille</h5>
+            <h5 class="modal-title" id="ModalLbl">Nouvelle Bouteille</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -105,7 +105,7 @@
                 <label class="form-control-label">Description:</label>
                 <input type="text" class="form-control" name="description" required>
               </div>
-              <input type="text" class="hidden" name="create" value='create'/> <!-- pour passer l'ordre create -->
+              <input type="text" class="hidden" name="create_xs" value='create'/> <!-- pour passer l'ordre create -->
 
                   <div class="input-file-container">
                     <input type="file" name="picture" class="input-file input-file-create-xs"/>
@@ -126,7 +126,7 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="ModalLabl">Nvle Teteille</h5>
+            <h5 class="modal-title" id="ModalLabl">Update Bouteille</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
             </button>
@@ -163,10 +163,10 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Picture:</label>
-                <label class="form-control-label"></label>
+                <label class="form-control-label">{$elts[0].picture}</label>
                 <input type="text" class="form-control hidden" name="picture" value="{$elts[0].picture}">
               </div>
-              <input type="text" class="hidden" name="update" value='update'/> <!-- pour passer l'ordre update -->
+              <input type="text" class="hidden" name="update_xs" value='update'/> <!-- pour passer l'ordre update -->
 
                   <div class="input-file-container">
                     <input type="file" name="picture-file" class="input-file input-file-update-xs">

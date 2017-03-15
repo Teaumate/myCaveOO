@@ -1,7 +1,7 @@
 <?php
 if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
-    if(isset($_POST['create'])){                // <----------------------------------------------- CREATE
-        if (!empty($_FILES["picture"]["name"])) {
+    if(isset($_POST['create']) || isset($_POST['create_xs'])){                // <-------------------------- CREATE
+        if (!empty($_FILES["picture"]["name"])) {               // gestion de l'image si download
             $pictureF = $_FILES["picture"];
 
             if ($pictureF["error"] !== UPLOAD_ERR_OK) {
@@ -45,8 +45,10 @@ if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
         $bottle_create['picture'] = $namePic;
         $bouteille = new Bottle($bottle_create);
         $manager->add($bouteille);
-        unset($_POST);
         $cache = 'off';
+        $bottleIdCreated = $bouteille->id();
+        if(isset($_POST['create_xs'])) {$directionCreated = 'center';}
+        unset($_POST);
     }                                   // <------------------------------------------------------- DELETE
     if(isset($_POST['delete'])){ 
         $bouteille = new Bottle(['id'=>$_POST['Del_id']]);
@@ -54,7 +56,7 @@ if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
         unset($_POST);
         $cache = 'off';
     }
-    if(isset($_POST['update'])){         // <------------------------------------------------------- UPDATE
+    if(isset($_POST['update']) || isset($_POST['update_xs'])){  // <------------------------------------- UPDATE
         if (!empty($_FILES["picture-file"]["name"])) {
             $pictureF = $_FILES["picture-file"];
 
@@ -94,6 +96,8 @@ if(isset($_SESSION['id']) AND isset($_SESSION['pseudo'])){
         $bottle_update['picture'] = $picture;
         $bouteille = new Bottle($bottle_update);
         $manager->update($bouteille);
+        $bottleIdCreated = $bouteille->id();
+        if(isset($_POST['update_xs'])) {$directionCreated = 'center'; $bottleIdCreated = $bouteille->id();}
         unset($_POST);
         $cache = 'off';
     }

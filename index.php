@@ -4,23 +4,21 @@ session_start();
 require "libs/Smarty.class.php";    // Smarty
 include 'php/php_fast_cache.php';   // Cache
 include 'class/Autoloader.php';     // autoloader
-// include 'class/Connexion.php';
-// include 'class/CaveManager.php';
-// include 'class/UserService.php';
-// include 'class/Bottle.php';
 
 Autoloader::register();
 
 define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
 
-//$connexion = Connexion::getInstance('127.0.0.1', 'u725582773_root', 'toor47', 'u725582773_test;charset=utf8');
-$connexion = Connexion::getInstance('localhost', 'root', 'toor', 'test');
+$connexion = Connexion::getInstance('127.0.0.1', 'u725582773_root', 'toor47', 'u725582773_test;charset=utf8');
+//$connexion = Connexion::getInstance('localhost', 'root', 'toor', 'test');
 $manager = CaveManager::getInstance($connexion->getPDO());
 
 require 'php/loginout.php';
 
 require 'php/crud.php';
+
+/************************************* initialisation des variables de vue ************************************/
 
 $first     = $ListNames[0]["id"];               // 1er enregistrement
 $nb_rec    = count($ListNames);                 // nb d'elements dans la base
@@ -29,9 +27,10 @@ $nb_elt    = 10;                                // nb enregistrements par pages
 $nb_pages  = ceil($nb_rec / $nb_elt);           // calcul du nb pages
 
 $page      = filter_input(INPUT_GET, 'page', FILTER_SANITIZE_NUMBER_INT);
-$bottle    = filter_input(INPUT_GET, 'bottle', FILTER_SANITIZE_NUMBER_INT);
-$direction = filter_input(INPUT_GET, 'direction', FILTER_SANITIZE_STRING);
-
+$bottleGet = filter_input(INPUT_GET, 'bottle', FILTER_SANITIZE_NUMBER_INT);
+$bottle    = isset($bottleIdCreated) ? $bottleIdCreated : $bottleGet;
+$directionGet = filter_input(INPUT_GET, 'direction', FILTER_SANITIZE_STRING);
+$direction = isset($directionCreated) ? $directionCreated : $directionGet;
 $optNames = array_column($ListNames, 'name', 'id'); // on récupère les colonnes 'name' et 'id' de $ListNames (pour la recherche)
 
 $LaBase   = array();            // tableau associatif id => ligne (une bouteille et toutes ses infos) *******
