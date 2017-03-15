@@ -139,27 +139,27 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Nom:</label>
-                <input type="text" class="form-control" name="name" value="{$elts[0].name}">
+                <input type="text" class="form-control" name="name" value="{$elts[0].name}" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Année:</label>
-                <input type="number" class="form-control year" name="year" value="{$elts[0].year}" min="0">
+                <input type="number" class="form-control year" name="year" value="{$elts[0].year}" min="0" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Grapes:</label>
-                <input type="text" class="form-control" name="grapes" value="{$elts[0].grapes}">
+                <input type="text" class="form-control" name="grapes" value="{$elts[0].grapes}" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Country:</label>
-                <input type="text" class="form-control" name="country" value="{$elts[0].country}">
+                <input type="text" class="form-control" name="country" value="{$elts[0].country}" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Region:</label>
-                <input type="text" class="form-control" name="region" value="{$elts[0].region}">
+                <input type="text" class="form-control" name="region" value="{$elts[0].region}" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Description:</label>
-                <input type="text" class="form-control" name="description" value="{$elts[0].description}">
+                <input type="text" class="form-control" name="description" value="{$elts[0].description}" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Picture:</label>

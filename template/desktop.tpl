@@ -187,27 +187,27 @@
               </div>
               <div class="form-group">
                 <label class="form-control-label">Nom:</label>
-                <input type="text" class="form-control" name="name">
+                <input type="text" class="form-control" name="name" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Année:</label>
-                <input type="number" class="form-control year" name="year" min="1">
+                <input type="number" class="form-control year" name="year" min="1" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Grapes:</label>
-                <input type="text" class="form-control" name="grapes">
+                <input type="text" class="form-control" name="grapes" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Country:</label>
-                <input type="text" class="form-control" name="country">
+                <input type="text" class="form-control" name="country" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Region:</label>
-                <input type="text" class="form-control" name="region">
+                <input type="text" class="form-control" name="region" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Description:</label>
-                <input type="text" class="form-control" name="description">
+                <input type="text" class="form-control" name="description" required>
               </div>
               <div class="form-group">
                 <label class="form-control-label">Picture:</label>

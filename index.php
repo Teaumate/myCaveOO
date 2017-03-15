@@ -10,8 +10,8 @@ Autoloader::register();
 define('MAIN_PATH', getcwd());
 define("UPLOAD_DIR", "img/");
 
-$connexion = Connexion::getInstance('127.0.0.1', 'u725582773_root', 'toor47', 'u725582773_test;charset=utf8');
-//$connexion = Connexion::getInstance('localhost', 'root', 'toor', 'test');
+// $connexion = Connexion::getInstance('127.0.0.1', 'u725582773_root', 'toor47', 'u725582773_test;charset=utf8');
+$connexion = Connexion::getInstance('localhost', 'root', 'toor', 'test');
 $manager = CaveManager::getInstance($connexion->getPDO());
 
 require 'php/loginout.php';
